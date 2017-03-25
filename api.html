@@ -1,0 +1,505 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Developer Interface &#8212; esser 1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="esser - [E]vent [S]ourcing [Ser]verlessly" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-esser">
+<span id="developer-interface"></span><span id="api"></span><h1>Developer Interface<a class="headerlink" href="#module-esser" title="Permalink to this headline">¶</a></h1>
+<p>This part of the documentation covers all the interfaces of <cite>esser</cite>.</p>
+<div class="section" id="entities-aggregates">
+<h2>Entities / Aggregates<a class="headerlink" href="#entities-aggregates" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="esser.entities.Entity">
+<em class="property">class </em><code class="descclassname">esser.entities.</code><code class="descname">Entity</code><span class="sig-paren">(</span><em>aggregate_id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#esser.entities.Entity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class representing an Aggregate in Event Sourcing</p>
+<dl class="attribute">
+<dt id="esser.entities.Entity.INITIAL_VERSION">
+<code class="descname">INITIAL_VERSION</code><em class="property"> = 1</em><a class="headerlink" href="#esser.entities.Entity.INITIAL_VERSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="esser.entities.Entity.aggregate_name">
+<code class="descname">aggregate_name</code><a class="headerlink" href="#esser.entities.Entity.aggregate_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override this to decide how this Aggregate is named</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="esser.entities.Entity.current_state">
+<code class="descname">current_state</code><a class="headerlink" href="#esser.entities.Entity.current_state" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="esser.entities.Entity.generate_new_guid">
+<code class="descname">generate_new_guid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#esser.entities.Entity.generate_new_guid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override this to decide how new GUID is generated</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="esser.entities.Entity.get_initial_state">
+<code class="descname">get_initial_state</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#esser.entities.Entity.get_initial_state" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="esser.entities.Entity.get_last_aggregate_version">
+<code class="descname">get_last_aggregate_version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#esser.entities.Entity.get_last_aggregate_version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="esser.entities.Entity.get_last_snapshot">
+<code class="descname">get_last_snapshot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#esser.entities.Entity.get_last_snapshot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="esser.entities.Entity.get_state_at">
+<code class="descname">get_state_at</code><span class="sig-paren">(</span><em>version</em><span class="sig-paren">)</span><a class="headerlink" href="#esser.entities.Entity.get_state_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="esser.entities.Entity.repository_class">
+<code class="descname">repository_class</code><a class="headerlink" href="#esser.entities.Entity.repository_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">DynamoDBRepository</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-esser.repositories.mixins">
+<span id="repositories"></span><h2>Repositories<a class="headerlink" href="#module-esser.repositories.mixins" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="esser.repositories.mixins.ReadMixin">
+<em class="property">class </em><code class="descclassname">esser.repositories.mixins.</code><code class="descname">ReadMixin</code><a class="headerlink" href="#esser.repositories.mixins.ReadMixin" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="esser.repositories.mixins.ReadMixin.get_all_events">
+<code class="descname">get_all_events</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#esser.repositories.mixins.ReadMixin.get_all_events" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all events up to latest version</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="esser.repositories.mixins.ReadMixin.get_events">
+<code class="descname">get_events</code><span class="sig-paren">(</span><em>version</em><span class="sig-paren">)</span><a class="headerlink" href="#esser.repositories.mixins.ReadMixin.get_events" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all events up to specific version</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="esser.repositories.mixins.ReadMixin.get_last_event">
+<code class="descname">get_last_event</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#esser.repositories.mixins.ReadMixin.get_last_event" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="esser.repositories.mixins.WriteMixin">
+<em class="property">class </em><code class="descclassname">esser.repositories.mixins.</code><code class="descname">WriteMixin</code><a class="headerlink" href="#esser.repositories.mixins.WriteMixin" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="esser.repositories.mixins.WriteMixin.persist">
+<code class="descname">persist</code><span class="sig-paren">(</span><em>aggregate_id</em>, <em>event_type</em>, <em>attrs</em><span class="sig-paren">)</span><a class="headerlink" href="#esser.repositories.mixins.WriteMixin.persist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Persist event in dynamodb.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-esser.repositories.base"></span><dl class="class">
+<dt id="esser.repositories.base.DynamoDBRepository">
+<em class="property">class </em><code class="descclassname">esser.repositories.base.</code><code class="descname">DynamoDBRepository</code><span class="sig-paren">(</span><em>aggregate</em><span class="sig-paren">)</span><a class="headerlink" href="#esser.repositories.base.DynamoDBRepository" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-esser.models">
+<span id="data-persistence"></span><h2>Data Persistence<a class="headerlink" href="#module-esser.models" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="esser.models.Event">
+<em class="property">class </em><code class="descclassname">esser.models.</code><code class="descname">Event</code><span class="sig-paren">(</span><em>hash_key=None</em>, <em>range_key=None</em>, <em>**attrs</em><span class="sig-paren">)</span><a class="headerlink" href="#esser.models.Event" title="Permalink to this definition">¶</a></dt>
+<dd><p>A DynamoDB Event model</p>
+<dl class="exception">
+<dt id="esser.models.Event.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><span class="sig-paren">(</span><em>msg=None</em>, <em>cause=None</em><span class="sig-paren">)</span><a class="headerlink" href="#esser.models.Event.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="esser.models.Event.Meta">
+<em class="property">class </em><code class="descclassname">Event.</code><code class="descname">Meta</code><a class="headerlink" href="#esser.models.Event.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="esser.models.Event.Meta.base_backoff_ms">
+<code class="descname">base_backoff_ms</code><em class="property"> = 25</em><a class="headerlink" href="#esser.models.Event.Meta.base_backoff_ms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="esser.models.Event.Meta.host">
+<code class="descname">host</code><em class="property"> = 'http://dynamodb:8000'</em><a class="headerlink" href="#esser.models.Event.Meta.host" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="esser.models.Event.Meta.max_retry_attempts">
+<code class="descname">max_retry_attempts</code><em class="property"> = 3</em><a class="headerlink" href="#esser.models.Event.Meta.max_retry_attempts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="esser.models.Event.Meta.region">
+<code class="descname">region</code><em class="property"> = 'us-east-1'</em><a class="headerlink" href="#esser.models.Event.Meta.region" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="esser.models.Event.Meta.request_timeout_seconds">
+<code class="descname">request_timeout_seconds</code><em class="property"> = 60</em><a class="headerlink" href="#esser.models.Event.Meta.request_timeout_seconds" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="esser.models.Event.Meta.session_cls">
+<code class="descname">session_cls</code><a class="headerlink" href="#esser.models.Event.Meta.session_cls" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Session</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="esser.models.Event.Meta.table_name">
+<code class="descname">table_name</code><em class="property"> = 'events'</em><a class="headerlink" href="#esser.models.Event.Meta.table_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="esser.models.Event.aggregate_id">
+<code class="descclassname">Event.</code><code class="descname">aggregate_id</code><a class="headerlink" href="#esser.models.Event.aggregate_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A unicode attribute</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="esser.models.Event.aggregate_name">
+<code class="descclassname">Event.</code><code class="descname">aggregate_name</code><a class="headerlink" href="#esser.models.Event.aggregate_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A unicode attribute</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="esser.models.Event.created_at">
+<code class="descclassname">Event.</code><code class="descname">created_at</code><a class="headerlink" href="#esser.models.Event.created_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>An attribute for storing a UTC Datetime</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="esser.models.Event.event_data">
+<code class="descclassname">Event.</code><code class="descname">event_data</code><a class="headerlink" href="#esser.models.Event.event_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="esser.models.Event.event_type">
+<code class="descclassname">Event.</code><code class="descname">event_type</code><a class="headerlink" href="#esser.models.Event.event_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>A unicode attribute</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="esser.models.Event.guid">
+<code class="descclassname">Event.</code><code class="descname">guid</code><a class="headerlink" href="#esser.models.Event.guid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="esser.models.Snapshot">
+<em class="property">class </em><code class="descclassname">esser.models.</code><code class="descname">Snapshot</code><span class="sig-paren">(</span><em>hash_key=None</em>, <em>range_key=None</em>, <em>**attrs</em><span class="sig-paren">)</span><a class="headerlink" href="#esser.models.Snapshot" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="esser.models.Snapshot.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><span class="sig-paren">(</span><em>msg=None</em>, <em>cause=None</em><span class="sig-paren">)</span><a class="headerlink" href="#esser.models.Snapshot.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="esser.models.Snapshot.Meta">
+<em class="property">class </em><code class="descclassname">Snapshot.</code><code class="descname">Meta</code><a class="headerlink" href="#esser.models.Snapshot.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="esser.models.Snapshot.Meta.base_backoff_ms">
+<code class="descname">base_backoff_ms</code><em class="property"> = 25</em><a class="headerlink" href="#esser.models.Snapshot.Meta.base_backoff_ms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="esser.models.Snapshot.Meta.host">
+<code class="descname">host</code><em class="property"> = 'http://dynamodb:8000'</em><a class="headerlink" href="#esser.models.Snapshot.Meta.host" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="esser.models.Snapshot.Meta.max_retry_attempts">
+<code class="descname">max_retry_attempts</code><em class="property"> = 3</em><a class="headerlink" href="#esser.models.Snapshot.Meta.max_retry_attempts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="esser.models.Snapshot.Meta.region">
+<code class="descname">region</code><em class="property"> = 'us-east-1'</em><a class="headerlink" href="#esser.models.Snapshot.Meta.region" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="esser.models.Snapshot.Meta.request_timeout_seconds">
+<code class="descname">request_timeout_seconds</code><em class="property"> = 60</em><a class="headerlink" href="#esser.models.Snapshot.Meta.request_timeout_seconds" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="esser.models.Snapshot.Meta.session_cls">
+<code class="descname">session_cls</code><a class="headerlink" href="#esser.models.Snapshot.Meta.session_cls" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Session</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="esser.models.Snapshot.Meta.table_name">
+<code class="descname">table_name</code><em class="property"> = 'snapshots'</em><a class="headerlink" href="#esser.models.Snapshot.Meta.table_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="esser.models.Snapshot.aggregate_key">
+<code class="descclassname">Snapshot.</code><code class="descname">aggregate_key</code><a class="headerlink" href="#esser.models.Snapshot.aggregate_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>A unicode attribute</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="esser.models.Snapshot.aggregate_name">
+<code class="descclassname">Snapshot.</code><code class="descname">aggregate_name</code><a class="headerlink" href="#esser.models.Snapshot.aggregate_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A unicode attribute</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="esser.models.Snapshot.created_at">
+<code class="descclassname">Snapshot.</code><code class="descname">created_at</code><a class="headerlink" href="#esser.models.Snapshot.created_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>An attribute for storing a UTC Datetime</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="esser.models.Snapshot.from_aggregate">
+<em class="property">classmethod </em><code class="descclassname">Snapshot.</code><code class="descname">from_aggregate</code><span class="sig-paren">(</span><em>aggregate</em><span class="sig-paren">)</span><a class="headerlink" href="#esser.models.Snapshot.from_aggregate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="esser.models.Snapshot.get_last_for">
+<em class="property">classmethod </em><code class="descclassname">Snapshot.</code><code class="descname">get_last_for</code><span class="sig-paren">(</span><em>aggregate</em>, <em>aggregate_id</em><span class="sig-paren">)</span><a class="headerlink" href="#esser.models.Snapshot.get_last_for" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="esser.models.Snapshot.state">
+<code class="descclassname">Snapshot.</code><code class="descname">state</code><a class="headerlink" href="#esser.models.Snapshot.state" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="events">
+<h2>Events<a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="esser.events.BaseEvent">
+<em class="property">class </em><code class="descclassname">esser.events.</code><code class="descname">BaseEvent</code><a class="headerlink" href="#esser.events.BaseEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base Event class.</p>
+<dl class="method">
+<dt id="esser.events.BaseEvent.attach_entity">
+<code class="descname">attach_entity</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="headerlink" href="#esser.events.BaseEvent.attach_entity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allow entity to be attached to the event.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="esser.events.BaseEvent.event_name">
+<code class="descname">event_name</code><a class="headerlink" href="#esser.events.BaseEvent.event_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event name by default is the class name.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="esser.events.BaseEvent.get_aggregate_key">
+<code class="descname">get_aggregate_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#esser.events.BaseEvent.get_aggregate_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Increment version of the event for the aggregate.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="esser.events.BaseEvent.persist">
+<code class="descname">persist</code><span class="sig-paren">(</span><em>attrs</em><span class="sig-paren">)</span><a class="headerlink" href="#esser.events.BaseEvent.persist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="esser.events.BaseEvent.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>attrs</em><span class="sig-paren">)</span><a class="headerlink" href="#esser.events.BaseEvent.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate event input before saving.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="esser.events.CreateEvent">
+<em class="property">class </em><code class="descclassname">esser.events.</code><code class="descname">CreateEvent</code><a class="headerlink" href="#esser.events.CreateEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event for creating an entity.</p>
+<dl class="method">
+<dt id="esser.events.CreateEvent.get_aggregate_key">
+<code class="descname">get_aggregate_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#esser.events.CreateEvent.get_aggregate_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="esser.events.CreateEvent.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>attrs</em><span class="sig-paren">)</span><a class="headerlink" href="#esser.events.CreateEvent.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate aggregate id using uuid.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="esser.events.DeleteEvent">
+<em class="property">class </em><code class="descclassname">esser.events.</code><code class="descname">DeleteEvent</code><a class="headerlink" href="#esser.events.DeleteEvent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="esser.events.DeleteEvent.event_name">
+<code class="descname">event_name</code><a class="headerlink" href="#esser.events.DeleteEvent.event_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="reducers">
+<h2>Reducers<a class="headerlink" href="#reducers" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="esser.reducer.BaseReducer">
+<em class="property">class </em><code class="descclassname">esser.reducer.</code><code class="descname">BaseReducer</code><a class="headerlink" href="#esser.reducer.BaseReducer" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="esser.reducer.BaseReducer.on_attribute_deleted">
+<code class="descname">on_attribute_deleted</code><span class="sig-paren">(</span><em>aggregate</em>, <em>next_event</em><span class="sig-paren">)</span><a class="headerlink" href="#esser.reducer.BaseReducer.on_attribute_deleted" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="esser.reducer.BaseReducer.on_created">
+<code class="descname">on_created</code><span class="sig-paren">(</span><em>aggregate</em>, <em>next_event</em><span class="sig-paren">)</span><a class="headerlink" href="#esser.reducer.BaseReducer.on_created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="esser.reducer.BaseReducer.on_deleted">
+<code class="descname">on_deleted</code><span class="sig-paren">(</span><em>aggregate</em>, <em>next_event</em><span class="sig-paren">)</span><a class="headerlink" href="#esser.reducer.BaseReducer.on_deleted" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="esser.reducer.BaseReducer.on_updated">
+<code class="descname">on_updated</code><span class="sig-paren">(</span><em>aggregate</em>, <em>next_event</em><span class="sig-paren">)</span><a class="headerlink" href="#esser.reducer.BaseReducer.on_updated" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="esser.reducer.BaseReducer.reduce">
+<code class="descname">reduce</code><span class="sig-paren">(</span><em>aggregate</em>, <em>next_event</em><span class="sig-paren">)</span><a class="headerlink" href="#esser.reducer.BaseReducer.reduce" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="esser.reducer.BaseReducer.update_version">
+<code class="descname">update_version</code><span class="sig-paren">(</span><em>aggregate</em>, <em>next_event</em><span class="sig-paren">)</span><a class="headerlink" href="#esser.reducer.BaseReducer.update_version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-esser.exceptions">
+<span id="exceptions"></span><h2>Exceptions<a class="headerlink" href="#module-esser.exceptions" title="Permalink to this headline">¶</a></h2>
+<dl class="exception">
+<dt id="esser.exceptions.AggregateDoesNotExist">
+<em class="property">exception </em><code class="descclassname">esser.exceptions.</code><code class="descname">AggregateDoesNotExist</code><a class="headerlink" href="#esser.exceptions.AggregateDoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="esser.exceptions.EventValidationException">
+<em class="property">exception </em><code class="descclassname">esser.exceptions.</code><code class="descname">EventValidationException</code><span class="sig-paren">(</span><em>errors</em>, <em>message='Event validation error'</em><span class="sig-paren">)</span><a class="headerlink" href="#esser.exceptions.EventValidationException" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="esser.exceptions.IntegrityError">
+<em class="property">exception </em><code class="descclassname">esser.exceptions.</code><code class="descname">IntegrityError</code><span class="sig-paren">(</span><em>errors</em>, <em>message='Duplicate hash and range keys'</em><span class="sig-paren">)</span><a class="headerlink" href="#esser.exceptions.IntegrityError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Developer Interface</a><ul>
+<li><a class="reference internal" href="#entities-aggregates">Entities / Aggregates</a></li>
+<li><a class="reference internal" href="#module-esser.repositories.mixins">Repositories</a></li>
+<li><a class="reference internal" href="#module-esser.models">Data Persistence</a></li>
+<li><a class="reference internal" href="#events">Events</a></li>
+<li><a class="reference internal" href="#reducers">Reducers</a></li>
+<li><a class="reference internal" href="#module-esser.exceptions">Exceptions</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">esser - [E]vent [S]ourcing [Ser]verlessly</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Nam Ngo.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/api.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
